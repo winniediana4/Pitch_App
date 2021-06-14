@@ -80,4 +80,12 @@ def new_post():
             user.bio = form.bio.data
             user.save()
             return redirect(url_for('.profile', name = name))
-          return render_template('profile/update_profile.html', form = form)     
+          return render_template('profile/update_profile.html', form = form) 
+
+        @main.route('/like/<int:id>', methods =['POST', 'GET'])
+        @login_required
+        def upvote(id):
+          post = post.query.get(id)
+          new_vote = upvote(post = post, upvote = 1)
+          new_vote.save()
+          return redirect(url_for('main.posts'))      
