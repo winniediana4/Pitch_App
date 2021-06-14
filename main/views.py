@@ -88,4 +88,13 @@ def new_post():
           post = post.query.get(id)
           new_vote = upvote(post = post, upvote = 1)
           new_vote.save()
-          return redirect(url_for('main.posts'))      
+          return redirect(url_for('main.posts'))
+
+
+        @main.route('/dislike/<int:id>', methods = ['GET', 'POST'])
+        @login_required
+        def downvote(id):
+          post = post.query(id)
+          vm = Downvote(post = post, Downvote=1)
+          vm = save()
+          return redirect(url_for('main.post'))        
